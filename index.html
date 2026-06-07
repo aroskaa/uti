@@ -122,35 +122,6 @@
       }
     }
 
-    .intro-video-screen {
-      position: fixed;
-      inset: 0;
-      z-index: 140;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 0.7s ease, visibility 0.7s ease;
-      overflow: hidden;
-    }
-
-    .intro-video-screen.hide {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .intro-video-screen video {
-      width: min(100vw, calc(100svh * 9 / 16));
-      height: min(100svh, calc(100vw * 16 / 9));
-      aspect-ratio: 9 / 16;
-      object-fit: cover;
-      border-radius: 0;
-      background: #000;
-    }
-
     section {
       min-height: 100svh;
       width: 100%;
@@ -179,7 +150,7 @@
       background: rgba(255, 244, 249, 0.82);
       border: 1px solid rgba(229, 105, 158, 0.22);
       box-shadow: 0 18px 45px rgba(211, 65, 127, 0.15);
-      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
     h1 {
@@ -362,7 +333,7 @@
       justify-content: center;
       padding: 24px;
       background: rgba(75, 24, 48, 0.42);
-      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       z-index: 120;
     }
 
@@ -492,33 +463,6 @@
       box-shadow: 0 8px 18px rgba(223, 79, 142, 0.26);
     }
 
-    .intro-video-screen {
-      position: fixed;
-      inset: 0;
-      z-index: 140;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 0.7s ease, visibility 0.7s ease;
-    }
-
-    .intro-video-screen.hide {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .intro-video-screen video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 0;
-      background: #000;
-    }
-
     @keyframes modalPop {
       from {
         opacity: 0;
@@ -630,6 +574,47 @@
         max-height: 48svh;
       }
     }
+
+    .intro-video-screen {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100svh !important;
+      z-index: 140 !important;
+      background: #000 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      overflow: hidden !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.7s ease, visibility 0.7s ease;
+    }
+
+    .intro-video-screen.hide {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+
+    .intro-video-screen .intro-video {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100svh !important;
+      max-width: none !important;
+      max-height: none !important;
+      min-width: 100vw !important;
+      min-height: 100svh !important;
+      object-fit: cover !important;
+      object-position: center center !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      background: #000 !important;
+    }
   </style>
 </head>
 
@@ -653,7 +638,9 @@
   <div class="intro-video-screen hide" id="introVideoScreen">
     <video
       id="introVideo"
+      class="intro-video"
       playsinline
+      webkit-playsinline
       preload="auto"
     >
       <source src="assets/intro-video.mp4" type="video/mp4" />
