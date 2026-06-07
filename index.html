@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Utii Day</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #fff1f7;
+      color: #3b1c2a;
+      overflow-x: hidden;
+    }
+    .section {
+      min-height: 100vh;
+      padding: 28px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .hero {
+      background:
+        radial-gradient(circle at top left, rgba(255, 134, 182, .35), transparent 35%),
+        linear-gradient(180deg, #ffd6e8, #fff1f7);
+    }
+    .hero h1, .slides-section h1 {
+      font-size: clamp(2rem, 7vw, 4rem);
+      color: #d84d84;
+      margin-bottom: 12px;
+      letter-spacing: -1px;
+    }
+    .hero p, .slides-section p {
+      max-width: 440px;
+      line-height: 1.55;
+      font-size: 1rem;
+      margin-bottom: 22px;
+    }
+    .video-card {
+      width: min(100%, 430px);
+      padding: 10px;
+      background: rgba(255, 255, 255, .8);
+      border: 2px solid rgba(216, 77, 132, .25);
+      border-radius: 28px;
+      box-shadow: 0 18px 45px rgba(216, 77, 132, .25);
+    }
+    video {
+      display: block;
+      width: 100%;
+      border-radius: 20px;
+      background: #000;
+    }
+    .scroll-btn, .nav-btn {
+      border: none;
+      border-radius: 999px;
+      background: #d84d84;
+      color: white;
+      font-weight: 700;
+      padding: 13px 20px;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(216, 77, 132, .25);
+    }
+    .scroll-btn { margin-top: 22px; text-decoration: none; display: inline-block; }
+    .slides-section { background: #fff8fb; }
+    .slideshow-wrap {
+      width: min(100%, 860px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .slide-frame {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 26px;
+      overflow: hidden;
+      background: white;
+      border: 2px solid rgba(216, 77, 132, .20);
+      box-shadow: 0 18px 45px rgba(216, 77, 132, .20);
+      position: relative;
+    }
+    .slide {
+      display: none;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #fff1f7;
+    }
+    .slide.active { display: block; animation: fade .35s ease; }
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .counter {
+      min-width: 76px;
+      font-weight: 700;
+      color: #d84d84;
+    }
+    .tiny-note { font-size: .9rem; opacity: .72; margin-top: 8px; }
+    @keyframes fade {
+      from { opacity: 0; transform: scale(.985); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @media (max-width: 600px) {
+      .section { padding: 22px 14px; }
+      .slide-frame { border-radius: 18px; }
+      .nav-btn { padding: 12px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <section class="section hero">
+    <h1>Happy Utii Day 💗</h1>
+    <p>Before today officially starts, watch this little birthday video first. After that, scroll down for your birthday briefing.</p>
+
+    <div class="video-card">
+      <video controls playsinline preload="metadata">
+        <source src="assets/birthday-video.mp4" type="video/mp4" />
+        Your browser does not support this video.
+      </video>
+    </div>
+
+    <a class="scroll-btn" href="#briefing">Open Birthday Briefing ↓</a>
+  </section>
+
+  <section class="section slides-section" id="briefing">
+    <h1>Birthday Briefing</h1>
+    <p>Swipe with the buttons. No itinerary spoilers. Just the important birthday rules.</p>
+
+    <div class="slideshow-wrap">
+      <div class="slide-frame">
+        <img class="slide active" src="assets/slides/page-1.png" alt="Slide 1" />
+        <img class="slide" src="assets/slides/page-2.png" alt="Slide 2" />
+        <img class="slide" src="assets/slides/page-3.png" alt="Slide 3" />
+        <img class="slide" src="assets/slides/page-4.png" alt="Slide 4" />
+        <img class="slide" src="assets/slides/page-5.png" alt="Slide 5" />
+        <img class="slide" src="assets/slides/page-6.png" alt="Slide 6" />
+        <img class="slide" src="assets/slides/page-7.png" alt="Slide 7" />
+        <img class="slide" src="assets/slides/page-8.png" alt="Slide 8" />
+      </div>
+
+      <div class="controls">
+        <button class="nav-btn" onclick="prevSlide()">← Previous</button>
+        <span class="counter" id="counter">1 / 8</span>
+        <button class="nav-btn" onclick="nextSlide()">Next →</button>
+      </div>
+      <div class="tiny-note">Tip: open this on phone for the cutest experience.</div>
+    </div>
+  </section>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const counter = document.getElementById('counter');
+    let current = 0;
+
+    function showSlide(index) {
+      slides[current].classList.remove('active');
+      current = (index + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      counter.textContent = `${current + 1} / ${slides.length}`;
+    }
+
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    let touchStartX = 0;
+    document.querySelector('.slide-frame').addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+    document.querySelector('.slide-frame').addEventListener('touchend', (e) => {
+      const diff = e.changedTouches[0].screenX - touchStartX;
+      if (Math.abs(diff) > 50) diff < 0 ? nextSlide() : prevSlide();
+    });
+  </script>
+</body>
+</html>
