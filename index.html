@@ -786,15 +786,22 @@
       readyModal.classList.add("show");
 
       const phoneNumber = "6282235765653";
+      
+      const heart = "\uD83D\uDC97";
+      const messageText =
+        "I'm ready for Utii Day, Sayang! " +
+        heart + heart + heart + heart + heart;
 
-      const heart = "\u{1F497}";
-      const messageText = `I'm ready for Utii Day, Sayang! ${heart}${heart}${heart}${heart}${heart}`;
+      const encodedMessage = encodeURIComponent(messageText);
 
       const whatsappUrl =
-      `https://wa.me/${phoneNumber}?text=${encodeURIComponent(messageText)}`;
+        "https://api.whatsapp.com/send?phone=" +
+        phoneNumber +
+        "&text=" +
+        encodedMessage;
 
       setTimeout(function () {
-        window.location.href = whatsappUrl;
+        window.location.assign(whatsappUrl);
       }, 3000);
     }
 
