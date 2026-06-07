@@ -2,274 +2,524 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Happy Utii Day</title>
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #fff1f7;
-      color: #3b1c2a;
-      overflow-x: hidden;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    /* Bouquet opening animation */
-    .intro {
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: #4b1830;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255, 182, 213, 0.45), transparent 25%),
+        radial-gradient(circle at 85% 10%, rgba(255, 214, 232, 0.65), transparent 25%),
+        radial-gradient(circle at 50% 90%, rgba(255, 194, 222, 0.45), transparent 30%),
+        #fff1f7;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "🎂 💐 🎀 🍰 💗 💐 🎂 🎀 🍓 🍰 💐";
       position: fixed;
       inset: 0;
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      background: radial-gradient(circle at top, #ffe0ee, #fff7fb 62%, #ffd6e8);
-      animation: introOut .8s ease forwards;
-      animation-delay: 2.45s;
+      font-size: 34px;
+      line-height: 90px;
+      letter-spacing: 28px;
+      opacity: 0.08;
       pointer-events: none;
+      z-index: -1;
+      word-break: break-all;
+      padding: 24px;
     }
-    .bouquet {
-      font-size: clamp(4rem, 22vw, 8rem);
-      transform-origin: bottom center;
-      animation: bouquetPop 1.3s cubic-bezier(.2, 1.25, .4, 1) both;
-      filter: drop-shadow(0 18px 25px rgba(216, 77, 132, .28));
-    }
-    .intro-text {
-      margin-top: 14px;
-      color: #d84d84;
-      font-weight: 800;
-      font-size: clamp(1.3rem, 6vw, 2.2rem);
-      animation: softFade .9s ease both;
-      animation-delay: .55s;
-    }
-    .petal {
-      position: absolute;
-      top: -50px;
-      font-size: 1.5rem;
-      opacity: .9;
-      animation: fall 2.5s linear forwards;
-    }
-    .petal:nth-child(1) { left: 9%; animation-delay: .1s; }
-    .petal:nth-child(2) { left: 24%; animation-delay: .35s; }
-    .petal:nth-child(3) { left: 45%; animation-delay: .05s; }
-    .petal:nth-child(4) { left: 69%; animation-delay: .25s; }
-    .petal:nth-child(5) { left: 86%; animation-delay: .55s; }
 
-    .section {
-      min-height: 100svh;
-      padding: 24px 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-    .hero {
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
       background:
-        radial-gradient(circle at top left, rgba(255, 134, 182, .35), transparent 35%),
-        linear-gradient(180deg, #ffd6e8, #fff1f7);
+        linear-gradient(135deg, rgba(255, 144, 190, 0.08) 25%, transparent 25%) -20px 0/80px 80px,
+        linear-gradient(225deg, rgba(255, 144, 190, 0.08) 25%, transparent 25%) -20px 0/80px 80px,
+        linear-gradient(315deg, rgba(255, 144, 190, 0.08) 25%, transparent 25%) 0px 0/80px 80px,
+        linear-gradient(45deg, rgba(255, 144, 190, 0.08) 25%, transparent 25%) 0px 0/80px 80px;
+      pointer-events: none;
+      z-index: -2;
     }
-    .hero h1, .slides-section h1 {
-      font-size: clamp(1.75rem, 7vw, 3.4rem);
-      color: #d84d84;
-      margin-bottom: 10px;
-      letter-spacing: -.8px;
-    }
-    .hero p, .slides-section p {
-      max-width: 390px;
-      line-height: 1.5;
-      font-size: .98rem;
-      margin-bottom: 18px;
-    }
-    .video-card {
-      width: min(86vw, 330px);
-      padding: 8px;
-      background: rgba(255, 255, 255, .82);
-      border: 2px solid rgba(216, 77, 132, .20);
-      border-radius: 24px;
-      box-shadow: 0 16px 40px rgba(216, 77, 132, .22);
-    }
-    video {
-      display: block;
-      width: 100%;
-      max-height: 56svh;
-      border-radius: 18px;
-      background: #000;
-      object-fit: contain;
-    }
-    .scroll-btn, .nav-btn {
-      border: none;
-      border-radius: 999px;
-      background: #d84d84;
-      color: white;
-      font-weight: 800;
-      padding: 12px 18px;
-      cursor: pointer;
-      box-shadow: 0 10px 20px rgba(216, 77, 132, .23);
-      -webkit-tap-highlight-color: transparent;
-    }
-    .scroll-btn { margin-top: 20px; text-decoration: none; display: inline-block; }
 
-    .slides-section {
-      background: #fff8fb;
-      justify-content: flex-start;
-      padding-top: 28px;
-    }
-    .slides-section p { margin-bottom: 14px; }
-    .slideshow-wrap {
-      width: min(100%, 860px);
+    .preloader {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, #ffe1ef, #fff7fb);
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 14px;
-    }
-    .slide-frame {
-      width: min(100%, 820px);
-      overflow: hidden;
-      border-radius: 18px;
-      background: transparent;
-      border: 0;
-      box-shadow: 0 14px 35px rgba(216, 77, 132, .18);
-      line-height: 0;
-    }
-    .slide {
-      display: none;
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      vertical-align: bottom;
-    }
-    .slide.active { display: block; animation: fade .35s ease; }
-    .controls {
-      display: flex;
       justify-content: center;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      padding-bottom: 20px;
+      z-index: 99;
+      animation: hidePreloader 0.8s ease forwards;
+      animation-delay: 2.5s;
     }
-    .counter {
-      min-width: 62px;
+
+    .bouquet {
+      text-align: center;
+      animation: bouquetPop 1.8s ease forwards;
+    }
+
+    .bouquet-icon {
+      font-size: 76px;
+      animation: float 1.4s ease-in-out infinite alternate;
+    }
+
+    .bouquet-text {
+      margin-top: 16px;
+      font-size: 20px;
       font-weight: 800;
-      color: #d84d84;
+      color: #dd4c8b;
     }
 
     @keyframes bouquetPop {
-      0% { opacity: 0; transform: scale(.25) rotate(-12deg) translateY(40px); }
-      55% { opacity: 1; transform: scale(1.12) rotate(4deg) translateY(0); }
-      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+      0% {
+        opacity: 0;
+        transform: scale(0.55) rotate(-8deg);
+      }
+
+      45% {
+        opacity: 1;
+        transform: scale(1.1) rotate(4deg);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
     }
-    @keyframes softFade {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    @keyframes float {
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(-10px);
+      }
     }
-    @keyframes fall {
-      0% { transform: translateY(-40px) rotate(0deg); opacity: 0; }
-      10% { opacity: 1; }
-      100% { transform: translateY(105svh) rotate(240deg); opacity: 0; }
+
+    @keyframes hidePreloader {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
     }
-    @keyframes introOut {
-      to { opacity: 0; visibility: hidden; }
+
+    section {
+      min-height: 100svh;
+      width: 100%;
+      padding: 28px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    @keyframes fade {
-      from { opacity: 0; transform: scale(.99); }
-      to { opacity: 1; transform: scale(1); }
+
+    .hero {
+      padding-top: 72px;
+      padding-bottom: 40px;
+    }
+
+    .hero-inner {
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-card {
+      width: 100%;
+      padding: 22px 16px 24px;
+      border-radius: 32px;
+      background: rgba(255, 244, 249, 0.82);
+      border: 1px solid rgba(229, 105, 158, 0.22);
+      box-shadow: 0 18px 45px rgba(211, 65, 127, 0.15);
+      backdrop-filter: blur(8px);
+    }
+
+    h1 {
+      font-size: clamp(28px, 7vw, 36px);
+      color: #df4f8e;
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      line-height: 1.55;
+      color: #48162d;
+      margin: 0 auto 22px;
+      max-width: 360px;
+    }
+
+    .video-wrap {
+      width: min(100%, 300px);
+      margin: 0 auto;
+      border-radius: 26px;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 12px 28px rgba(110, 34, 70, 0.16);
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      max-height: 58svh;
+      object-fit: contain;
+      border-radius: 20px;
+      background: #000;
+    }
+
+    .scroll-btn {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 13px 22px;
+      border-radius: 999px;
+      background: #df4f8e;
+      color: white;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 10px 22px rgba(223, 79, 142, 0.32);
+      transition: 0.25s ease;
+    }
+
+    .scroll-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* ===== BRIEFING SECTION - OLD CLEAN LAYOUT ===== */
+
+    .briefing {
+      padding-top: 40px;
+      padding-bottom: 40px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .briefing-inner {
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .briefing-title {
+      font-size: clamp(28px, 7vw, 34px);
+      color: #df4f8e;
+      margin-bottom: 10px;
+      line-height: 1.1;
+      font-weight: 800;
+    }
+
+    .briefing-subtitle {
+      font-size: 15px;
+      line-height: 1.5;
+      color: #48162d;
+      margin: 0 auto 18px;
+      max-width: 360px;
+    }
+
+    .briefing-card {
+      width: 100%;
+      border-radius: 22px;
+      overflow: hidden;
+      background: rgba(255, 244, 249, 0.78);
+      border: 1px solid rgba(229, 105, 158, 0.2);
+      box-shadow: 0 12px 28px rgba(211, 65, 127, 0.1);
+    }
+
+    .slideshow {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 22px;
+      background: #fff1f7;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      animation: fadeIn 0.35s ease;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .slide img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 0;
+    }
+
+    .briefing-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .briefing-bottom button {
+      border: none;
+      border-radius: 999px;
+      padding: 13px 22px;
+      background: #df4f8e;
+      color: white;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(223, 79, 142, 0.24);
+      transition: 0.2s ease;
+    }
+
+    .briefing-bottom button:active {
+      transform: scale(0.96);
+    }
+
+    .counter {
+      min-width: 48px;
+      text-align: center;
+      font-size: 16px;
+      color: #df4f8e;
+      font-weight: 800;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @media (max-width: 430px) {
-      .section { padding: 18px 12px; }
-      .hero { justify-content: flex-start; padding-top: 34px; }
-      .hero p { max-width: 350px; font-size: .94rem; margin-bottom: 14px; }
-      .video-card { width: min(84vw, 310px); border-radius: 22px; padding: 7px; }
-      video { max-height: 52svh; border-radius: 16px; }
-      .scroll-btn { margin-top: 16px; padding: 11px 16px; }
-      .slides-section { padding: 22px 8px 12px; }
-      .slides-section h1 { font-size: 1.75rem; }
-      .slides-section p { font-size: .92rem; margin-bottom: 12px; }
-      .slide-frame { width: calc(100vw - 16px); border-radius: 16px; }
-      .nav-btn { padding: 11px 14px; font-size: .9rem; }
+      section {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .hero {
+        padding-top: 80px;
+      }
+
+      .hero-card {
+        padding: 20px 14px 22px;
+      }
+
+      .subtitle {
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+
+      .video-wrap {
+        width: min(100%, 290px);
+      }
+
+      video {
+        max-height: 54svh;
+      }
+
+      .briefing {
+        padding-top: 32px;
+        padding-bottom: 36px;
+      }
+
+      .briefing-title {
+        font-size: 28px;
+      }
+
+      .briefing-subtitle {
+        font-size: 14px;
+        margin-bottom: 16px;
+      }
+
+      .briefing-bottom {
+        gap: 14px;
+      }
+
+      .briefing-bottom button {
+        padding: 12px 18px;
+        font-size: 14px;
+      }
+
+      .counter {
+        font-size: 15px;
+      }
+    }
+
+    @media (max-height: 720px) {
+      .hero {
+        padding-top: 58px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .subtitle {
+        font-size: 13.5px;
+        margin-bottom: 16px;
+      }
+
+      .video-wrap {
+        width: min(100%, 260px);
+      }
+
+      video {
+        max-height: 48svh;
+      }
     }
   </style>
 </head>
+
 <body>
-  <div class="intro" aria-hidden="true">
-    <span class="petal">🌸</span>
-    <span class="petal">💗</span>
-    <span class="petal">🌷</span>
-    <span class="petal">🌸</span>
-    <span class="petal">💖</span>
-    <div class="bouquet">💐</div>
-    <div class="intro-text">For Utii</div>
+  <div class="preloader">
+    <div class="bouquet">
+      <div class="bouquet-icon">💐</div>
+      <div class="bouquet-text">A little birthday surprise...</div>
+    </div>
   </div>
 
-  <section class="section hero">
-    <h1>Happy Utii Day 💗</h1>
-    <p>Before today officially starts, watch this little birthday video first. After that, scroll down for your birthday briefing.</p>
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <div class="hero-card">
+        <h1>Happy Utii Day 💗</h1>
 
-    <div class="video-card">
-      <video controls playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture oncontextmenu="return false;">
-        <source src="assets/birthday-video.mp4" type="video/mp4" />
-        Your browser does not support this video.
-      </video>
+        <p class="subtitle">
+          Before today officially starts, watch this little birthday video first.
+          After that, scroll down for your birthday briefing.
+        </p>
+
+        <div class="video-wrap">
+          <video
+            controls
+            playsinline
+            preload="metadata"
+            controlsList="nodownload noplaybackrate"
+            disablePictureInPicture
+          >
+            <source src="assets/birthday-video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <a class="scroll-btn" href="#briefing">Open Birthday Briefing ↓</a>
+      </div>
     </div>
-
-    <a class="scroll-btn" href="#briefing">Open Birthday Briefing ↓</a>
   </section>
 
-  <section class="section slides-section" id="briefing">
-    <h1>Birthday Briefing</h1>
-    <p>No itinerary spoilers. Just the important birthday rules.</p>
+  <section class="briefing" id="briefing">
+    <div class="briefing-inner">
+      <h2 class="briefing-title">Birthday Briefing</h2>
 
-    <div class="slideshow-wrap">
-      <div class="slide-frame">
-        <img class="slide active" src="assets/slides/page-1.png" alt="Slide 1" />
-        <img class="slide" src="assets/slides/page-2.png" alt="Slide 2" />
-        <img class="slide" src="assets/slides/page-3.png" alt="Slide 3" />
-        <img class="slide" src="assets/slides/page-4.png" alt="Slide 4" />
-        <img class="slide" src="assets/slides/page-5.png" alt="Slide 5" />
-        <img class="slide" src="assets/slides/page-6.png" alt="Slide 6" />
-        <img class="slide" src="assets/slides/page-7.png" alt="Slide 7" />
-        <img class="slide" src="assets/slides/page-8.png" alt="Slide 8" />
+      <p class="briefing-subtitle">
+        No itinerary spoilers. Just the important birthday rules.
+      </p>
+
+      <div class="briefing-card">
+        <div class="slideshow" id="slideshow">
+          <div class="slide active">
+            <img src="assets/slides/page-1.png" alt="Happy Utii Day slide" />
+          </div>
+
+          <div class="slide">
+            <img src="assets/slides/page-2.png" alt="Happy Birthday Utii slide" />
+          </div>
+
+          <div class="slide">
+            <img src="assets/slides/page-3.png" alt="You have been booked slide" />
+          </div>
+
+          <div class="slide">
+            <img src="assets/slides/page-4.png" alt="Happiness overflow slide" />
+          </div>
+
+          <div class="slide">
+            <img src="assets/slides/page-5.png" alt="Fit check part one slide" />
+          </div>
+
+          <div class="slide">
+            <img src="assets/slides/page-6.png" alt="Fit check part two slide" />
+          </div>
+
+          <div class="slide">
+            <img src="assets/slides/page-7.png" alt="Birthday rules slide" />
+          </div>
+
+          <div class="slide">
+            <img src="assets/slides/page-8.png" alt="Birthday wishes slide" />
+          </div>
+        </div>
       </div>
 
-      <div class="controls">
-        <button class="nav-btn" onclick="prevSlide()">← Previous</button>
-        <span class="counter" id="counter">1 / 8</span>
-        <button class="nav-btn" onclick="nextSlide()">Next →</button>
+      <div class="briefing-bottom">
+        <button type="button" onclick="prevSlide()">← Previous</button>
+        <div class="counter" id="counter">1 / 8</div>
+        <button type="button" onclick="nextSlide()">Next →</button>
       </div>
     </div>
   </section>
 
   <script>
-    const slides = document.querySelectorAll('.slide');
-    const counter = document.getElementById('counter');
-    const video = document.querySelector('video');
-    let current = 0;
+    let currentSlide = 0;
 
-    video.addEventListener('contextmenu', e => e.preventDefault());
+    const slides = document.querySelectorAll(".slide");
+    const counter = document.getElementById("counter");
+    const slideshow = document.getElementById("slideshow");
 
     function showSlide(index) {
-      slides[current].classList.remove('active');
-      current = (index + slides.length) % slides.length;
-      slides[current].classList.add('active');
-      counter.textContent = `${current + 1} / ${slides.length}`;
+      slides.forEach((slide) => slide.classList.remove("active"));
+      slides[index].classList.add("active");
+      counter.textContent = `${index + 1} / ${slides.length}`;
     }
 
-    function nextSlide() { showSlide(current + 1); }
-    function prevSlide() { showSlide(current - 1); }
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') nextSlide();
-      if (e.key === 'ArrowLeft') prevSlide();
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(currentSlide);
+    }
+
+    let startX = 0;
+
+    slideshow.addEventListener("touchstart", function (e) {
+      startX = e.touches[0].clientX;
     });
 
-    let touchStartX = 0;
-    document.querySelector('.slide-frame').addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    });
-    document.querySelector('.slide-frame').addEventListener('touchend', (e) => {
-      const diff = e.changedTouches[0].screenX - touchStartX;
-      if (Math.abs(diff) > 50) diff < 0 ? nextSlide() : prevSlide();
+    slideshow.addEventListener("touchend", function (e) {
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
     });
   </script>
 </body>
