@@ -22,39 +22,41 @@
       font-family: Arial, sans-serif;
       color: #4b1830;
       background:
-        radial-gradient(circle at 15% 20%, rgba(255, 182, 213, 0.45), transparent 25%),
-        radial-gradient(circle at 85% 10%, rgba(255, 214, 232, 0.65), transparent 25%),
-        radial-gradient(circle at 50% 90%, rgba(255, 194, 222, 0.45), transparent 30%),
-        #fff1f7;
+        radial-gradient(circle at 15% 30%, rgba(255, 255, 255, 0.92) 0 90px, transparent 91px),
+        radial-gradient(circle at 86% 18%, rgba(255, 255, 255, 0.92) 0 86px, transparent 87px),
+        radial-gradient(circle at 12% 70%, rgba(250, 238, 224, 0.78) 0 80px, transparent 81px),
+        radial-gradient(circle at 90% 74%, rgba(250, 238, 224, 0.72) 0 70px, transparent 71px),
+        linear-gradient(180deg, #fffdf9 0%, #fff8f0 100%);
       overflow-x: hidden;
       position: relative;
     }
 
     body::before {
-      content: "🎂 💐 🎀 🍰 💗 💐 🎂 🎀 🍓 🍰 💐";
-      position: fixed;
-      inset: 0;
-      font-size: 34px;
-      line-height: 90px;
-      letter-spacing: 28px;
-      opacity: 0.08;
-      pointer-events: none;
-      z-index: -1;
-      word-break: break-all;
-      padding: 24px;
-    }
-
-    body::after {
       content: "";
       position: fixed;
       inset: 0;
-      background:
-        linear-gradient(135deg, rgba(255, 144, 190, 0.08) 25%, transparent 25%) -20px 0/80px 80px,
-        linear-gradient(225deg, rgba(255, 144, 190, 0.08) 25%, transparent 25%) -20px 0/80px 80px,
-        linear-gradient(315deg, rgba(255, 144, 190, 0.08) 25%, transparent 25%) 0px 0/80px 80px,
-        linear-gradient(45deg, rgba(255, 144, 190, 0.08) 25%, transparent 25%) 0px 0/80px 80px;
+      background-image:
+        radial-gradient(circle, rgba(212, 175, 55, 0.32) 1.2px, transparent 1.3px),
+        radial-gradient(circle, rgba(212, 175, 55, 0.18) 1px, transparent 1.2px);
+      background-size: 36px 36px, 22px 22px;
+      background-position: 0 0, 12px 8px;
+      opacity: 0.55;
       pointer-events: none;
       z-index: -2;
+    }
+
+    body::after {
+      content: "🎈     🎈          🎈     🎈";
+      position: fixed;
+      inset: 0;
+      font-size: 70px;
+      line-height: 210px;
+      letter-spacing: 42px;
+      opacity: 0.09;
+      pointer-events: none;
+      z-index: -1;
+      word-break: break-all;
+      padding: 18px;
     }
 
     .preloader {
@@ -201,8 +203,6 @@
       transform: scale(0.96);
     }
 
-    /* ===== BRIEFING SECTION - OLD CLEAN LAYOUT ===== */
-
     .briefing {
       padding-top: 40px;
       padding-bottom: 40px;
@@ -275,7 +275,8 @@
       margin-top: 18px;
     }
 
-    .briefing-bottom button {
+    .briefing-bottom button,
+    .ready-btn {
       border: none;
       border-radius: 999px;
       padding: 13px 22px;
@@ -288,7 +289,8 @@
       transition: 0.2s ease;
     }
 
-    .briefing-bottom button:active {
+    .briefing-bottom button:active,
+    .ready-btn:active {
       transform: scale(0.96);
     }
 
@@ -298,6 +300,123 @@
       font-size: 16px;
       color: #df4f8e;
       font-weight: 800;
+    }
+
+    .ready-area {
+      display: none;
+      margin-top: 22px;
+      animation: fadeIn 0.35s ease;
+    }
+
+    .ready-area.show {
+      display: block;
+    }
+
+    .ready-note {
+      font-size: 14px;
+      color: #7c3155;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .ready-btn {
+      font-size: 15px;
+      padding: 14px 26px;
+      background: linear-gradient(135deg, #df4f8e, #ff7caf);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(75, 24, 48, 0.42);
+      backdrop-filter: blur(8px);
+      z-index: 120;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 360px;
+      padding: 28px 22px;
+      border-radius: 28px;
+      text-align: center;
+      background: rgba(255, 250, 253, 0.96);
+      border: 1px solid rgba(229, 105, 158, 0.22);
+      box-shadow: 0 20px 60px rgba(75, 24, 48, 0.28);
+      animation: modalPop 0.35s ease;
+    }
+
+    .modal-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    .modal-card h2 {
+      color: #df4f8e;
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .modal-card p {
+      font-size: 15px;
+      line-height: 1.5;
+      color: #4b1830;
+      margin-bottom: 22px;
+    }
+
+    .loading-track {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: #ffe1ef;
+    }
+
+    .loading-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #df4f8e, #ff9bc1);
+    }
+
+    .modal-overlay.show .loading-fill {
+      animation: loadToWhatsapp 3s linear forwards;
+    }
+
+    .loading-text {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #9d3d68;
+      font-weight: 700;
+    }
+
+    @keyframes modalPop {
+      from {
+        opacity: 0;
+        transform: scale(0.92) translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes loadToWhatsapp {
+      from {
+        width: 0%;
+      }
+
+      to {
+        width: 100%;
+      }
     }
 
     @keyframes fadeIn {
@@ -477,8 +596,32 @@
         <div class="counter" id="counter">1 / 8</div>
         <button type="button" onclick="nextSlide()">Next →</button>
       </div>
+
+      <div class="ready-area" id="readyArea">
+        <p class="ready-note">Briefing complete. Birthday girl ready?</p>
+        <button type="button" class="ready-btn" onclick="openReadyModal()">
+          I’m Ready 💗
+        </button>
+      </div>
     </div>
   </section>
+
+  <div class="modal-overlay" id="readyModal">
+    <div class="modal-card">
+      <div class="modal-icon">💐</div>
+      <h2>Good.</h2>
+      <p>
+        Let’s have a great day.  
+        Now send the confirmation and wait to be picked up.
+      </p>
+
+      <div class="loading-track">
+        <div class="loading-fill"></div>
+      </div>
+
+      <div class="loading-text">Opening WhatsApp...</div>
+    </div>
+  </div>
 
   <script>
     let currentSlide = 0;
@@ -486,11 +629,19 @@
     const slides = document.querySelectorAll(".slide");
     const counter = document.getElementById("counter");
     const slideshow = document.getElementById("slideshow");
+    const readyArea = document.getElementById("readyArea");
+    const readyModal = document.getElementById("readyModal");
 
     function showSlide(index) {
       slides.forEach((slide) => slide.classList.remove("active"));
       slides[index].classList.add("active");
       counter.textContent = `${index + 1} / ${slides.length}`;
+
+      if (index === slides.length - 1) {
+        readyArea.classList.add("show");
+      } else {
+        readyArea.classList.remove("show");
+      }
     }
 
     function nextSlide() {
@@ -501,6 +652,22 @@
     function prevSlide() {
       currentSlide = (currentSlide - 1 + slides.length) % slides.length;
       showSlide(currentSlide);
+    }
+
+    function openReadyModal() {
+      readyModal.classList.add("show");
+
+      const phoneNumber = "6282235765653";
+
+      const heart = "\u{1F497}";
+      const messageText = `I'm ready Utii Day, Sayang! ${heart}${heart}${heart}${heart}${heart}`;
+
+      const whatsappUrl =
+      `https://wa.me/${phoneNumber}?text=${encodeURIComponent(messageText)}`;
+
+      setTimeout(function () {
+        window.location.href = whatsappUrl;
+      }, 3000);
     }
 
     let startX = 0;
